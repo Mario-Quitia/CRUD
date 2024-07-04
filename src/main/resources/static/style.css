@@ -1,0 +1,342 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap');
+:root{
+  --color-barra-lateral:rgb(255,255,255);
+
+  --color-texto:rgb(0,0,0);
+  --color-texto-menu:rgb(134,136,144);
+
+  --color-menu-hover:rgb(238,238,238);
+  --color-menu-hover-texto:rgb(0,0,0);
+
+  --color-boton:rgb(0,0,0);
+  --color-boton-texto:rgb(255,255,255);
+
+  --color-linea:rgb(180,180,180);
+
+  --color-switch-base :rgb(201,202,206);
+  --color-switch-circulo:rgb(241,241,241);
+
+  --color-scroll:rgb(192,192,192);
+  --color-scroll-hover:rgb(134,134,134);
+}
+
+.dark-mode{
+  --color-barra-lateral:rgb(44,45,49);
+
+  --color-texto:rgb(255,255,255);
+  --color-texto-menu:rgb(110,110,117);
+
+  --color-menu-hover:rgb(0,0,0);
+  --color-menu-hover-texto:rgb(238,238,238);
+
+  --color-boton:rgb(255,255,255);
+  --color-boton-texto:rgb(0,0,0);
+
+  --color-linea:rgb(90,90,90);
+
+  --color-switch-base :rgb(39,205,64);
+  --color-switch-circulo:rgb(255,255,255);
+
+  --color-scroll:rgb(68,69,74);
+  --color-scroll-hover:rgb(85,85,85);
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
+}
+
+
+body {
+  height: 100vh;
+  width: 100%;
+  background-color: white;
+}
+
+
+
+
+.barra_lateral {
+  position:fixed;
+  width: 250px;
+  height: 100%;
+  padding: 20px 15px;
+  background-color: var(--color-barra-lateral);
+  transition: width 0.5s ease,background-color 0.3s ease,left 0.5s ease;
+  overflow: hidden;
+}
+
+.mini-barra-lateral {
+  width: 80px;
+}
+
+.barra_lateral span {
+  white-space: nowrap;
+  font-size: 18px;
+  text-align: left;
+  opacity: 1;
+  transition: opacity 0.5s ease, width 0.5s ease;
+}
+
+.barra_lateral span.oculto {
+  opacity: 0;
+  width: 0;
+}
+
+.barra_lateral .nombre_pagina {
+  width: 100%;
+  height: 45px;
+  color: var(--color-texto);
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.barra_lateral .nombre_pagina ion-icon {
+  min-width: 50px;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+
+.barra_lateral .boton {
+  width: 100%;
+  margin-bottom: 20px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--color-boton);
+  color: var(--color-boton-texto);
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.barra_lateral .boton ion-icon {
+  min-width: 25px;
+  font-size: 25px;
+  margin-right: 10px;
+}
+
+.barra_lateral .boton span {
+  font-size: 18px;
+}
+
+.barra_lateral .boton:hover {
+  background-color: var(--color-menu-hover);
+  color: var(--color-menu-hover-texto);
+}
+
+
+.barra_lateral .navegacion li {
+
+  list-style: none;
+  display: flex;
+  margin-bottom: 5px;
+
+
+}
+
+.barra_lateral .navegacion a{
+ 
+  width: 100%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 10px;
+  color: var(--color-texto-menu);
+}
+
+
+.barra_lateral .navegacion a:hover{
+  background-color: var(--color-menu-hover);
+  color: var(--color-menu-hover-texto);
+}
+.barra_lateral .navegacion ion-icon {
+
+  min-width: 50px;
+  font-size: 20px;
+}
+
+
+.barra_lateral .linea{
+  width: 100%;
+  height: 1px;
+  margin-top: 15px;
+  background-color: var(--color-linea);
+}
+
+
+.barra_lateral  .modo-oscuro{
+  width: 100%;
+  margin-bottom: 80px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.barra_lateral  .modo-oscuro .info{
+  width: 150px;
+  height: 45px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  color: var(--color-texto-menu);
+}
+.barra_lateral  .modo-oscuro ion-icon{
+
+  width: 50px;
+  font-size: 20px;
+}
+
+.barra_lateral .modo-oscuro .switch{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  height: 45px;
+  cursor: pointer;
+}
+
+
+.barra_lateral .modo-oscuro .base{
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 35px;
+  height: 20px;
+  background-color: var(--color-switch-base);
+  border-radius: 50px;
+}
+.barra_lateral .modo-oscuro .circulo{
+  position: absolute;
+  width: 18px;
+  height: 90%;
+  background-color: var(--color-switch-circulo);
+  border-radius: 50%;
+  left: 2px;
+  transition: left 0.5s ease;
+}
+.barra_lateral .modo-oscuro .circulo.prendido{
+  left: 15px;
+}
+
+ 
+main {
+  margin-left: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 250px);
+  padding: 20px;
+  transition: margin-left 0.5s ease;
+}
+
+main.min-main {
+  margin-left: 80px;
+  width: calc(100% - 80px);
+}
+
+/* Estilos del Contenedor del Producto */
+
+.contenedor {
+  display: flex;
+}
+
+
+.contenedor {
+  display: none; /* Oculta todos los contenedores por defecto */
+  padding: 20px;
+}
+
+.contenedor.active {
+  display: block; /* Muestra solo el contenedor activo */
+}
+
+
+
+
+
+
+.contenedor_producto {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  background-color: var(--color-fondo);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.tabla th, .tabla td {
+  padding: 10px;
+  border: 1px solid var(--color-linea);
+  text-align: left;
+}
+
+.tabla th {
+  background-color: var(--color-tabla-cabecera);
+  color: var(--color-tabla-texto);
+}
+
+/* Botones */
+.boton, .btn-crear, .btn-editar, .btn-eliminar {
+  background-color: var(--color-boton);
+  color: var(--color-boton-texto);
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  margin-right: 5px;
+}
+
+.boton:hover, .btn-crear:hover, .btn-editar:hover, .btn-eliminar:hover {
+  background-color: var(--color-menu-hover);
+}
+
+/* Cambio de Modo Oscuro */
+.dark-mode .boton, .dark-mode .btn-crear, .dark-mode .btn-editar, .dark-mode .btn-eliminar {
+  background-color: var(--color-boton-fondo);
+  color: var(--color-boton-texto);
+}
+
+.dark-mode .boton:hover, .dark-mode .btn-crear:hover, .dark-mode .btn-editar:hover, .dark-mode .btn-eliminar:hover {
+  background-color: var(--color-menu-hover);
+}
+
+.dark-mode body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+}
+
+.dark-mode .barra_lateral {
+  background-color: var(--color-barra-lateral);
+  color: var(--color-texto);
+}
+
+.dark-mode .tabla th {
+  background-color: var(--color-tabla-cabecera);
+  color: var(--color-tabla-texto);
+}
+
+/* Media Queries y Otros Estilos Responsivos */
+@media screen and (max-width: 768px) {
+  .barra_lateral {
+      width: 80px;
+  }
+  main {
+      margin-left: 80px;
+  }
+}

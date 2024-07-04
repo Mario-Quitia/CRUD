@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de base de datos Morgana Store</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+
+<body>
+
+    <aside class="barra_lateral">
+        <div class="nombre_pagina">
+            <ion-icon id="cloud" name="cloud-outline"></ion-icon>
+            <span>Sistema de<br>inventario<br>Morgana Store</span>
+        </div>
+        <button class="boton">
+            <ion-icon name="grid-outline"></ion-icon>
+            <span>Menu</span>
+        </button>
+
+        <nav class="navegacion">
+            <ul>
+                <li><a th:href="@{/listar}" onclick="mostrarContenedor('contenedor-productos')"><ion-icon name="shirt-outline"></ion-icon><span>Productos</span></a></li>
+                <li><a th:href="@{/listarClientes}" onclick="mostrarContenedor('contenedor-clientes')"><ion-icon name="body-outline"></ion-icon><span>Clientes</span></a></li>
+                <li><a href="#" onclick="mostrarContenedor('contenedor-proveedores')"><ion-icon name="rocket-outline"></ion-icon><span>Proveedores</span></a></li>
+                <li><a href="#" onclick="mostrarContenedor('contenedor-inventario')"><ion-icon name="server-outline"></ion-icon><span>Inventario</span></a></li>
+                <li><a href="#" onclick="mostrarContenedor('contenedor-pedidos')"><ion-icon name="server-outline"></ion-icon><span>Pedidos</span></a></li>
+            </ul>
+        </nav>
+
+        <div class="linea"></div>
+
+        <div class="modo-oscuro">
+            <div class="info">
+                <ion-icon name="moon-outline"></ion-icon>
+                <span>Modo Oscuro</span>
+            </div>
+            <div class="switch">
+                <div class="base">
+                    <div class="circulo"></div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main>
+        <section id="contenedor-productos" class="contenedor" style="display: none;">
+            <header>
+                <h2>Productos</h2>
+                <a th:href="@{/producto/crear}" class="btn btn-crear">Crear Producto</a>
+            </header>
+            <div class="tabla-responsive">
+                <table class="tabla">
+                    <thead class="tabla-cabecera">
+                        <tr>
+                            <th>ID Producto</th>
+                            <th>Nombre Producto</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Categoría</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="producto : ${productos}">
+                            <td th:text="${producto.idProducto}"></td>
+                            <td th:text="${producto.nombreProducto}"></td>
+                            <td th:text="${producto.descripcion}"></td>
+                            <td th:text="${producto.precio}"></td>
+                            <td th:text="${producto.categoria}"></td>
+                            <td>
+                                <a th:href="@{'/producto/editar/' + ${producto.idProducto}}" class="btn btn-editar">Editar</a>
+                                <a th:href="@{'/producto/eliminar/' + ${producto.idProducto}}" class="btn btn-eliminar"
+                                    onclick="return confirm('¿Está seguro de querer eliminar este producto?');">Eliminar</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section id="contenedor-clientes" class="contenedor" style="display: none;">
+            <header>
+                <h2>Clientes</h2>
+                <a th:href="@{/cliente/crear}" class="btn btn-crear">Crear Cliente</a>
+            </header>
+            <div class="tabla-responsive">
+                <table class="tabla">
+                    <thead class="tabla-cabecera">
+                        <tr>
+                            <th>ID Cliente</th>
+                            <th>Nombre Cliente</th>
+                            <th>Apellido</th>
+                            <th>Celular</th>
+                            <th>Dirección</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cliente : ${clientes}">
+                            <td th:text="${cliente.idCliente}"></td>
+                            <td th:text="${cliente.nombre}"></td>
+                            <td th:text="${cliente.apellido}"></td>
+                            <td th:text="${cliente.celular}"></td>
+                            <td th:text="${cliente.direccion}"></td>
+                            <td>
+                                <a th:href="@{'/cliente/editar/' + ${cliente.idCliente}}" class="btn btn-editar">Editar</a>
+                                <a th:href="@{'/cliente/eliminar/' + ${cliente.idCliente}}" class="btn btn-eliminar"
+                                    onclick="return confirm('¿Está seguro de querer eliminar este cliente?');">Eliminar</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="contenedor-proveedores" class="contenedor" style="display: none;">
+            <header>
+                <h2>Proveedores</h2>
+            </header>
+            <!-- Content for Proveedores -->
+        </section>
+        
+        <section id="contenedor-inventario" class="contenedor" style="display: none;">
+            <header>
+                <h2>Inventario</h2>
+            </header>
+            <!-- Content for Inventario -->
+        </section>
+        
+        <section id="contenedor-pedidos" class="contenedor" style="display: none;">
+            <header>
+                <h2>Pedidos</h2>
+            </header>
+            <!-- Content for Pedidos -->
+        </section>
+    </main>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="scripts.js"></script>
+</body>
+
+</html>
