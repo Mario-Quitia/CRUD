@@ -20,10 +20,12 @@
             <span>Menu</span>
         </button>
 
+
+      
         <nav class="navegacion">
             <ul>
-                <li><a th:href="@{/listar}" onclick="mostrarContenedor('contenedor-productos')"><ion-icon name="shirt-outline"></ion-icon><span>Productos</span></a></li>
-                <li><a th:href="@{/listarClientes}" onclick="mostrarContenedor('contenedor-clientes')"><ion-icon name="body-outline"></ion-icon><span>Clientes</span></a></li>
+                <li><a th:href="@{/listar}" ><ion-icon name="shirt-outline"></ion-icon><span>Productos</span></a></li>
+                <li><a th:href="@{/listarClientes}"><ion-icon name="body-outline"></ion-icon><span>Clientes</span></a></li>
                 <li><a href="#" onclick="mostrarContenedor('contenedor-proveedores')"><ion-icon name="rocket-outline"></ion-icon><span>Proveedores</span></a></li>
                 <li><a href="#" onclick="mostrarContenedor('contenedor-inventario')"><ion-icon name="server-outline"></ion-icon><span>Inventario</span></a></li>
                 <li><a href="#" onclick="mostrarContenedor('contenedor-pedidos')"><ion-icon name="server-outline"></ion-icon><span>Pedidos</span></a></li>
