@@ -47,20 +47,20 @@ public class ClienteControlador {
   @GetMapping("/cliente/crear")
     public String mostrarFormularioCrear(Model model) {
         model.addAttribute("cliente", new Cliente());
-        return "formularioCliente"; // Nombre de la vista del formulario para crear producto
+        return "FormularioCliente"; // Nombre de la vista del formulario para crear producto
     }
     @PostMapping("/cliente/guardar")
     public String guardarCliente(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("cliente", cliente);
-            return "formularioCliente";  // Retornar a la vista del formulario si hay errores.
+            return "FormularioCliente";  // Retornar a la vista del formulario si hay errores.
         }
         try {
             servicio.guardar(cliente);
         } catch (Exception e) {
             logger.error("Error al guardar el cliente.", e);
             model.addAttribute("errorMensaje", "Error al guardar el cliente. Intente nuevamente más tarde.");
-            return "formularioCliente";
+            return "FormularioCliente";
         }
         return "redirect:/listarClientes";
     }
