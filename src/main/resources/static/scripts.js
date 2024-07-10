@@ -49,4 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     mostrarContenedor("contenedor-clientes");
   }
 
+  else if (urlActual==="listarProveedor"){
+    mostrarContenedor("contenedor-proveedores");
+  }
 });

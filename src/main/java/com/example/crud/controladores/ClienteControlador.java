@@ -35,8 +35,8 @@ public class ClienteControlador {
 
         catch (Exception e) {
             // Logueo del error y adición de un mensaje de error al modelo.
-            logger.error("Error al obtener el listado de productos.", e);
-            model.addAttribute("errorMensaje", "Error al obtener productos. Intente nuevamente más tarde.");
+            logger.error("Error al obtener el listado de clientes.", e);
+            model.addAttribute("errorMensaje", "Error al obtener clientes. Intente nuevamente más tarde.");
         }
         // Retorna el nombre de la vista 'index' que debe estar en la carpeta de
         // recursos de vistas.
@@ -47,7 +47,7 @@ public class ClienteControlador {
   @GetMapping("/cliente/crear")
     public String mostrarFormularioCrear(Model model) {
         model.addAttribute("cliente", new Cliente());
-        return "FormularioCliente"; // Nombre de la vista del formulario para crear producto
+        return "FormularioCliente"; // Nombre de la vista del formulario para crear cliente
     }
     @PostMapping("/cliente/guardar")
     public String guardarCliente(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult result, Model model) {
@@ -70,7 +70,7 @@ public class ClienteControlador {
     public String mostrarFormularioEditar(@PathVariable Long idCliente, Model model) {
         Optional<Cliente> cliente = servicio.listarPorId(idCliente);
         if (cliente.isPresent()) {
-            model.addAttribute("producto", cliente.get());
+            model.addAttribute("cliente", cliente.get());
             return "formularioCliente";
         } else {
             return "redirect:/listarClientes";
@@ -78,7 +78,7 @@ public class ClienteControlador {
     }
 
     @PostMapping("/cliente/editar")
-    public String actualizarCliente(@Valid @ModelAttribute("producto") Cliente cliente, BindingResult result, Model model) {
+    public String actualizarCliente(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("cliente", cliente);
             return "formularioCliente";

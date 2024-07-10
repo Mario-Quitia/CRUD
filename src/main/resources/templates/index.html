@@ -26,7 +26,7 @@
             <ul>
                 <li><a th:href="@{/listar}" ><ion-icon name="shirt-outline"></ion-icon><span>Productos</span></a></li>
                 <li><a th:href="@{/listarClientes}"><ion-icon name="body-outline"></ion-icon><span>Clientes</span></a></li>
-                <li><a href="#" onclick="mostrarContenedor('contenedor-proveedores')"><ion-icon name="rocket-outline"></ion-icon><span>Proveedores</span></a></li>
+                <li><a th:href="@{/listarProveedor}"><ion-icon name="rocket-outline"></ion-icon><span>Proveedores</span></a></li>
                 <li><a href="#" onclick="mostrarContenedor('contenedor-inventario')"><ion-icon name="server-outline"></ion-icon><span>Inventario</span></a></li>
                 <li><a href="#" onclick="mostrarContenedor('contenedor-pedidos')"><ion-icon name="server-outline"></ion-icon><span>Pedidos</span></a></li>
             </ul>
@@ -118,11 +118,42 @@
             </div>
         </section>
 
+        
         <section id="contenedor-proveedores" class="contenedor" style="display: none;">
             <header>
                 <h2>Proveedores</h2>
+                <a th:href="@{/Proveedor/crear}" class="btn btn-crear">Crear Proveedor</a>
             </header>
-            <!-- Content for Proveedores -->
+            <div class="tabla-responsive">
+                <table class="tabla">
+                    <thead class="tabla-cabecera">
+                        <tr>
+                            <th>ID Proveedor</th>
+                            <th>Nombre Proveedor</th>
+                            <th>Nombre de contacto</th>
+                            <th>Dirección</th>
+                            <th>Celular</th>
+                            <th>Ciudad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="proveedor : ${proveedores}">
+                            <td th:text="${proveedor.idProveedor}"></td>
+                            <td th:text="${proveedor.nombreProveedor}"></td>
+                            <td th:text="${proveedor.nombredeContacto}"></td>
+                            <td th:text="${proveedor.direccion}"></td>
+                            <td th:text="${proveedor.celular}"></td>
+                            <td th:text="${proveedor.ciudad}"></td>
+                            <td>
+                                <a th:href="@{'/proveedor/editar/' + ${proveedor.idProveedor}}" class="btn btn-editar">Editar</a>
+                                <a th:href="@{'/proveedor/eliminar/' + ${proveedor.idProveedor}}" class="btn btn-eliminar"
+                                    onclick="return confirm('¿Está seguro de querer eliminar este proveedor?');">Eliminar</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
         
         <section id="contenedor-inventario" class="contenedor" style="display: none;">
