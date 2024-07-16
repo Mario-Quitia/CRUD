@@ -19,92 +19,79 @@ import java.util.Optional;
 @Controller
 public class ProveedorControl {
     private static final Logger logger = LoggerFactory.getLogger(ProveedorControl.class);
+    
     @Autowired
     private IProveedorServicios servicio;
 
     @GetMapping("/listarProveedor")
     public String mostrarListaProveedor(Model model) {
-
         try {
             List<Proveedor> proveedores = servicio.listar();
             model.addAttribute("proveedores", proveedores);
             logger.info("Listado de Proveedores obtenido con éxito.");
         } catch (Exception e) {
-            // Logueo del error y adición de un mensaje de error al modelo.
             logger.error("Error al obtener el listado de Proveedores.", e);
-            model.addAttribute("errorMensaje", "Error al obtener productos. Intente nuevamente más tarde.");
+            model.addAttribute("errorMensaje", "Error al obtener proveedores. Intente nuevamente más tarde.");
         }
-        // Retorna el nombre de la vista 'index' que debe estar en la carpeta de
-        // recursos de vistas.
         return "index";
-
     }
 
     @GetMapping("/Proveedor/crear")
-    public String mostratFormulariocrear(Model model) {
-
-        model.addAttribute("Proveedor", new Proveedor());
-        return "FormularioProveedor"; // Nombre de la vista del formulario para crear producto
+    public String mostrarFormularioCrear(Model model) {
+        model.addAttribute("proveedor", new Proveedor());
+        return "FormularioProveedor";
     }
 
     @PostMapping("/Proveedor/guardar")
-    public String guardarProveedor(@Valid @ModelAttribute("proveedor") Proveedor proveedor, BindingResult result,
-            Model model) {
+    public String guardarProveedor(@Valid @ModelAttribute("proveedor") Proveedor proveedor, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("Proveedor", proveedor);
-            return "FormularioProveedor"; // Retornar a la vista del formulario si hay errores.
+            model.addAttribute("proveedor", proveedor);
+            return "FormularioProveedor";  // Retornar a la vista del formulario si hay errores.
         }
         try {
-            servicio.guardar(proveedor);
+            servicio.guardarProveedor(proveedor);
         } catch (Exception e) {
             logger.error("Error al guardar el proveedor.", e);
-            model.addAttribute("errorMensaje", "Error al guardar el cliente. Intente nuevamente más tarde.");
+            model.addAttribute("errorMensaje", "Error al guardar el proveedor. Intente nuevamente más tarde.");
             return "FormularioProveedor";
         }
         return "redirect:/listarProveedor";
     }
 
-
-
-    
-    @GetMapping("/proveedor/editar/{idProveedor}")
+    @GetMapping("/Proveedor/editar/{idProveedor}")
     public String mostrarFormularioEditar(@PathVariable Long idProveedor, Model model) {
-        Optional<Proveedor> Proveedor = servicio.listarPorId(idProveedor);
-        if (Proveedor.isPresent()) {
-            model.addAttribute("proovedor", Proveedor.get());
-            return "formularioProveedor";
+        Optional<Proveedor> proveedor = servicio.listarPorId(idProveedor);
+        if (proveedor.isPresent()) {
+            model.addAttribute("proveedor", proveedor.get());
+            return "FormularioProveedor";
         } else {
             return "redirect:/listarProveedor";
         }
     }
 
-    @PostMapping("/proovedor/editar")
-    public String actualizarCliente(@Valid @ModelAttribute("prooveedor") Proveedor proveedor, BindingResult result, Model model) {
+    @PostMapping("/Proveedor/editar")
+    public String actualizarProveedor(@Valid @ModelAttribute("proveedor") Proveedor proveedor, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("proveedor", proveedor);
-            return "formularioProveedor";
+            return "FormularioProveedor";
         }
         try {
-            servicio.guardar(proveedor);
+            servicio.guardarProveedor(proveedor);
         } catch (Exception e) {
             logger.error("Error al actualizar el proveedor.", e);
-            model.addAttribute("errorMensaje", "Error al actualizar el proovedor. Intente nuevamente más tarde.");
-            return "formularioProveedor";
+            model.addAttribute("errorMensaje", "Error al actualizar el proveedor. Intente nuevamente más tarde.");
+            return "FormularioProveedor";
         }
         return "redirect:/listarProveedor";
     }
 
-    @GetMapping("/provedoor/eliminar/{idProveedor}")
+    @GetMapping("/Proveedor/eliminar/{idProveedor}")
     public String eliminarProveedor(@PathVariable Long idProveedor) {
         try {
             servicio.eliminar(idProveedor);
         } catch (Exception e) {
-            logger.error("Error al eliminar el proovedor.", e);
+            logger.error("Error al eliminar el proveedor.", e);
         }
         return "redirect:/listarProveedor";
     }
 }
-
-
-
-

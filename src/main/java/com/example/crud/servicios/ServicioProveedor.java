@@ -25,7 +25,7 @@ private RepositorioProveedor data;
     }
 
     @Override
-    public Proveedor guardar(Proveedor proveedor) {
+    public Proveedor guardarProveedor(Proveedor proveedor) {
        Proveedor proveedorGuardado=data.save(proveedor);
        return proveedorGuardado;
     }

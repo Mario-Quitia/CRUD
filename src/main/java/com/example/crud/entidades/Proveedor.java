@@ -10,6 +10,7 @@ public class Proveedor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idProveedor", nullable = false)
     private long idProveedor;
 
     @Column(name = "nombreProveedor", nullable = false)

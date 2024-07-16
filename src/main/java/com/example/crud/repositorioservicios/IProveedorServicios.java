@@ -9,7 +9,7 @@ public interface IProveedorServicios {
 
     Optional<Proveedor> listarPorId(long idProveedor);
 
-    Proveedor guardar(Proveedor proveedor);
+    Proveedor guardarProveedor(Proveedor proveedor);
 
     void eliminar(long idProveedor);
 

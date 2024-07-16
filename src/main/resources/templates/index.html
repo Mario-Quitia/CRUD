@@ -122,6 +122,7 @@
         <section id="contenedor-proveedores" class="contenedor" style="display: none;">
             <header>
                 <h2>Proveedores</h2>
+
                 <a th:href="@{/Proveedor/crear}" class="btn btn-crear">Crear Proveedor</a>
             </header>
             <div class="tabla-responsive">
@@ -146,8 +147,8 @@
                             <td th:text="${proveedor.celular}"></td>
                             <td th:text="${proveedor.ciudad}"></td>
                             <td>
-                                <a th:href="@{'/proveedor/editar/' + ${proveedor.idProveedor}}" class="btn btn-editar">Editar</a>
-                                <a th:href="@{'/proveedor/eliminar/' + ${proveedor.idProveedor}}" class="btn btn-eliminar"
+                                <a th:href="@{'/Proveedor/editar/' + ${proveedor.idProveedor}}" class="btn btn-editar">Editar</a>
+                                <a th:href="@{'/Proveedor/eliminar/' + ${proveedor.idProveedor}}" class="btn btn-eliminar"
                                     onclick="return confirm('¿Está seguro de querer eliminar este proveedor?');">Eliminar</a>
                             </td>
                         </tr>
