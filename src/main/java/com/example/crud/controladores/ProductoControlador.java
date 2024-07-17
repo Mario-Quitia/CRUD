@@ -23,50 +23,38 @@ import java.util.Optional;
 @Controller
 public class ProductoControlador {
 
-    // Logger para registrar eventos y actividades del controlador.
     private static final Logger logger = LoggerFactory.getLogger(ProductoControlador.class);
 
-    // Inyección del servicio que maneja la lógica de negocio para Productos.
     @Autowired
     private IProductoServicios service;
 
-    /**
-     * Método para manejar la solicitud GET para listar todos los productos.
-     *
-     * @param model Modelo de Spring para pasar datos a la vista.
-     * @return Nombre de la vista a renderizar.
-     */
     @GetMapping("/listar")
     public String mostrarListaProductos(Model model) {
         try {
-            // Llamada al servicio para obtener la lista de productos.
             List<Producto> productos = service.listar();
-            // Agrega la lista de productos al modelo que será accesible en la vista.
             model.addAttribute("productos", productos);
             logger.info("Listado de productos obtenido con éxito.");
         } catch (Exception e) {
-            // Logueo del error y adición de un mensaje de error al modelo.
             logger.error("Error al obtener el listado de productos.", e);
             model.addAttribute("errorMensaje", "Error al obtener productos. Intente nuevamente más tarde.");
         }
-        // Retorna el nombre de la vista 'index' que debe estar en la carpeta de recursos de vistas.
         return "index";
     }
 
     @GetMapping("/producto/crear")
     public String mostrarFormularioCrear(Model model) {
         model.addAttribute("producto", new Producto());
-        return "formularioProducto"; // Nombre de la vista del formulario para crear producto
+        return "formularioProducto";
     }
 
     @PostMapping("/producto/guardar")
     public String guardarProducto(@Valid @ModelAttribute("producto") Producto producto, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("producto", producto);
-            return "formularioProducto";  // Retornar a la vista del formulario si hay errores.
+            return "formularioProducto";
         }
         try {
-            service.save(producto);
+            service.guardarProducto(producto);
         } catch (Exception e) {
             logger.error("Error al guardar el producto.", e);
             model.addAttribute("errorMensaje", "Error al guardar el producto. Intente nuevamente más tarde.");
@@ -77,7 +65,7 @@ public class ProductoControlador {
 
     @GetMapping("/producto/editar/{idProducto}")
     public String mostrarFormularioEditar(@PathVariable Long idProducto, Model model) {
-        Optional<Producto> producto = service.listarId(idProducto);
+        Optional<Producto> producto = service.listarPorId(idProducto);
         if (producto.isPresent()) {
             model.addAttribute("producto", producto.get());
             return "formularioProducto";
@@ -93,7 +81,13 @@ public class ProductoControlador {
             return "formularioProducto";
         }
         try {
-            service.save(producto);
+            Optional<Producto> productoExistente = service.listarPorId(producto.getId());
+            if (productoExistente.isPresent()) {
+                service.guardarProducto(producto);
+            } else {
+                model.addAttribute("errorMensaje", "El producto no existe. No se puede actualizar.");
+                return "formularioProducto";
+            }
         } catch (Exception e) {
             logger.error("Error al actualizar el producto.", e);
             model.addAttribute("errorMensaje", "Error al actualizar el producto. Intente nuevamente más tarde.");
@@ -105,10 +99,11 @@ public class ProductoControlador {
     @GetMapping("/producto/eliminar/{idProducto}")
     public String eliminarProducto(@PathVariable Long idProducto) {
         try {
-            service.delete(idProducto);
+            service.eliminarProducto(idProducto);
         } catch (Exception e) {
             logger.error("Error al eliminar el producto.", e);
         }
         return "redirect:/listar";
     }
 }
+

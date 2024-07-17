@@ -8,11 +8,10 @@ public interface IProductoServicios {
 
     List<Producto> listar();
 
-    Optional<Producto> findById(Long idProducto);
+    Optional <Producto> listarPorId(long idProducto);
+ 
+    
+    Producto guardarProducto(Producto producto);
 
-    Optional<Producto> listarId(Long idProducto);
-
-    Producto save(Producto producto);
-
-    void delete(Long idProducto);
+    void eliminarProducto(Long idProducto);
 }

@@ -22,28 +22,21 @@ public class ServiciosProductos implements IProductoServicios {
     }
 
     @Override
-    public Optional<Producto> findById(Long idProducto) {
+    public Optional<Producto> listarPorId(long idProducto) {
         return data.findById(idProducto);
     }
 
     @Override
-    public Optional<Producto> listarId(Long idProducto) {
-        return data.findById(idProducto); // Devuelve Optional<Producto>
+    public Producto guardarProducto(Producto producto) {
+        Producto productoGuardado=data.save(producto);
+        return productoGuardado;
     }
 
     @Override
-    public Producto save(Producto producto) {
-        try {
-            return data.save(producto);
-        } catch (Exception e) {
-            System.err.println("Error al guardar el producto: " + e.getMessage());
-            return null;
-        }
+    public void eliminarProducto(Long idProducto) {
+       data.deleteById(idProducto);
     }
 
-    @Override
-    public void delete(Long idProducto) {
-        data.deleteById(idProducto);
-    }
+   
 }
 
